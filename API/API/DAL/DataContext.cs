@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using API.Modules.Services.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.DAL
 {
@@ -8,10 +9,17 @@ namespace API.DAL
         {
         }
 
+        public void InitDb()
+        {
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
         }
-        
+
+        public DbSet<Service> Services => Set<Service>();
     }
 }
