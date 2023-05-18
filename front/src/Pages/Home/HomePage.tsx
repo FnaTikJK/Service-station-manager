@@ -46,7 +46,7 @@ const HomePage = () => {
                     <th>ИД</th>
                     <th>Название</th>
                     <th>Цена</th>
-                    <th>Действие</th>
+                    <th></th>
                 </tr>
                 {services?.map((s) =>
                     <ServiceLineComp service={s}/>)}

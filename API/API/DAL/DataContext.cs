@@ -1,4 +1,5 @@
 ﻿using API.Modules.Services.Core;
+using API.Modules.Clinets.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.DAL
@@ -21,5 +22,6 @@ namespace API.DAL
         }
 
         public DbSet<Service> Services => Set<Service>();
+        public DbSet<Worker> Workers => Set<Worker>();
     }
 }
