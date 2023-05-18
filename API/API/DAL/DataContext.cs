@@ -1,5 +1,6 @@
 ﻿using API.Modules.Services.Core;
 using API.Modules.Clinets.Core;
+using API.Modules.Workers.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.DAL
@@ -23,5 +24,6 @@ namespace API.DAL
 
         public DbSet<Service> Services => Set<Service>();
         public DbSet<Worker> Workers => Set<Worker>();
+        public DbSet<Client> Clients => Set<Client>();
     }
 }

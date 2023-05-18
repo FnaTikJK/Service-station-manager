@@ -1,28 +1,28 @@
 import React, {useState} from 'react';
-import {WorkerDTO} from "./WorkersPage";
-import axios from "axios";
 import {Button, DatePicker, Input} from "antd";
+import {ClientDTO} from "./ClientsPage";
+import axios from "axios";
 
 type Props = {
-    client: WorkerDTO
+    client: ClientDTO
 }
 
-async function UpdateValues(worker: WorkerDTO, setter: any){
+async function UpdateValues(client: ClientDTO, setter: any){
     setter("read");
     try {
-        axios.put("/api/Workers", {
-            id: worker.id,
-            firstName: worker.firstName,
-            secondName: worker.secondName,
-            thirdName: worker.thirdName,
-            birthDate: worker.birthDate});
+        await axios.put("/api/Workers", {
+            id: client.id,
+            firstName: client.firstName,
+            secondName: client.secondName,
+            thirdName: client.thirdName,
+            birthDate: client.birthDate});
     }
     catch (e){
         alert(e);
     }
 }
 
-const WorkersLineComp = ({client}: Props) => {
+const ClientsLineComp = ({client}: Props) => {
     const [state, setState] = useState<"read" | "write">("read");
     let birthDateFormat = "DD.MM.YYYY"
 
@@ -57,4 +57,4 @@ const WorkersLineComp = ({client}: Props) => {
     );
 };
 
-export default WorkersLineComp;
+export default ClientsLineComp;

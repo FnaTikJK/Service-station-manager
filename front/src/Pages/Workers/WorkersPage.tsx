@@ -61,7 +61,7 @@ const WorkersPage = () => {
                     <th></th>
                 </tr>
                 {workers?.map((w) =>
-                    <WorkersLineComp worker={w}/>)}
+                    <WorkersLineComp client={w}/>)}
                 {!isAdding ?
                     <tr>
                         <td/>
