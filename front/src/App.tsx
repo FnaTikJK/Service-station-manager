@@ -5,6 +5,7 @@ import HeaderComp from "./Components/HeaderComp";
 import HomePage from "./Pages/Home/HomePage";
 import WorkersPage from "./Pages/Workers/WorkersPage";
 import ClientsPage from "./Pages/Clients/ClientsPage";
+import RepairsPage from "./Pages/Repairs/RepairsPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             <Route index element={<HomePage />}/>
             <Route path={"/Workers"} element={<WorkersPage />}/>
             <Route path={"/Clients"} element={<ClientsPage />}/>
+            <Route path={"/Repairs"} element={<RepairsPage />}/>
         </Route>
       </Routes>
   );

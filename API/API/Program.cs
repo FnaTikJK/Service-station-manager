@@ -2,6 +2,7 @@ using API.DAL;
 using API.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using API.Infrastructure.GeneralMapping;
 using static API.Infrastructure.JsonConfig;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
 });
+
+builder.Services.AddAutoMapper(typeof(GeneralMappingProfile));
 
 builder.Services.RegisterModules();
 

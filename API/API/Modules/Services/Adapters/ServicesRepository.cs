@@ -21,6 +21,11 @@ namespace API.Modules.Services.Adapters
             return Set.FirstOrDefault(e => e.Id == id);
         }
 
+        public IEnumerable<Service> GetRange(IEnumerable<int> ids)
+        {
+            return Set.Where(s => ids.Contains(s.Id));
+        }
+
         public async Task AddAsync(Service service)
         {
             await Set.AddAsync(service);

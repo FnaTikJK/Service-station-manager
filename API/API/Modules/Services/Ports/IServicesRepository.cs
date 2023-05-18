@@ -6,6 +6,7 @@ namespace API.Modules.Services.Ports
     {
         public IEnumerable<Service> GetServices();
         public Service? GetService(int id);
+        public IEnumerable<Service> GetRange(IEnumerable<int> ids);
         public Task AddAsync(Service service);
         public Task RemoveAndSaveAsync(int id);
         public Task SaveChangesAsync();
