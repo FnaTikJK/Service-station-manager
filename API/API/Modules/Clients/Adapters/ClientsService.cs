@@ -1,6 +1,8 @@
-﻿using API.Modules.Clinets.Core;
+﻿using API.Modules.Clients.DTO;
+using API.Modules.Clinets.Core;
 using API.Modules.Clinets.DTO;
 using API.Modules.Clinets.Ports;
+using API.Modules.Repairs.Ports;
 using AutoMapper;
 
 namespace API.Modules.Clinets.Adapters
@@ -9,34 +11,44 @@ namespace API.Modules.Clinets.Adapters
     {
         private readonly IMapper mapper;
         private readonly IClientsRepository clientsRepository;
+        private readonly IRepairsRepository repairsRepository;
 
-        public ClientsService(IMapper mapper, IClientsRepository clientsRepository)
+        public ClientsService(IMapper mapper, IClientsRepository clientsRepository, IRepairsRepository repairsRepository)
         {
             this.mapper = mapper;
             this.clientsRepository = clientsRepository;
+            this.repairsRepository = repairsRepository;
         }
 
-        public IEnumerable<ClientDTO> GetAll()
+        public IEnumerable<ClientOutDTO> GetAll()
         {
-            return mapper.Map<IEnumerable<ClientDTO>>(clientsRepository.GetAll());
+            var clients = mapper.Map<IEnumerable<ClientOutDTO>>(clientsRepository.GetAll());
+            foreach (var client in clients)
+            {
+                client.Cars = repairsRepository.GetCars(client.Id);
+            }
+
+            return clients;
         }
 
-        public ClientDTO? GetById(int id)
+        public ClientOutDTO? GetById(int id)
         {
-            return mapper.Map<ClientDTO>(clientsRepository.GetById(id));
+            var client = mapper.Map<ClientOutDTO>(clientsRepository.GetById(id));
+            client.Cars = repairsRepository.GetCars(client.Id);
+            return client;
         }
 
-        public async Task AddOrUpdateAsync(ClientDTO workerDto)
+        public async Task AddOrUpdateAsync(ClientAddDTO workerAddDto)
         {
-            var existed = clientsRepository.GetById(workerDto.Id);
+            var existed = clientsRepository.GetById(workerAddDto.Id);
             if (existed != null)
             {
-                mapper.Map(workerDto, existed);
+                mapper.Map(workerAddDto, existed);
             }
             else
             {
-                workerDto.Id = 0;
-                await clientsRepository.AddAsync(mapper.Map<Client>(workerDto));
+                workerAddDto.Id = 0;
+                await clientsRepository.AddAsync(mapper.Map<Client>(workerAddDto));
             }
             await clientsRepository.SaveChangesAsync();
         }

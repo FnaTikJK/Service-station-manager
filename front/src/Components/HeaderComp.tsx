@@ -1,13 +1,14 @@
 import React from 'react';
 import {Outlet, useNavigate} from 'react-router-dom'
 import {Radio} from "antd";
+import "./Styles.css";
 
 const HeaderComp = () => {
     const navigate = useNavigate();
 
     return (
         <>
-            <header>
+            <header className={"center"}>
                 <Radio.Group defaultValue={"a"}>
                     <Radio.Button value={"a"} onClick={() => navigate("/")}>Услуги</Radio.Button>
                     <Radio.Button value={"b"} onClick={() => navigate("/Workers")}>Работники</Radio.Button>

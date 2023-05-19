@@ -10,13 +10,14 @@ namespace API.Modules.Clinets.Mapper
     {
         public ClientsMappingProfile()
         {
-            CreateMap<Client, ClientDTO>().ForMember(dest => dest.BirthDate, 
+            CreateMap<Client, ClientAddDTO>().ForMember(dest => dest.BirthDate, 
                 opt => opt.MapFrom(src => DateOnly.FromDateTime(src.BirthDate)));
-            CreateMap<ClientDTO, Client>().ForMember(dest => dest.BirthDate,
+            CreateMap<ClientAddDTO, Client>().ForMember(dest => dest.BirthDate,
                 opt => opt.MapFrom(src => src.BirthDate.ToDateTime(new TimeOnly())));
             CreateMap<Client, ClientShortDTO>()
                 .ForMember(dest => dest.SecondNameWithInitials,
                     opt => opt.MapFrom(src => $"{src.SecondName} {src.FirstName.First()}.{src.ThirdName.First()}."));
+            CreateMap<Client, ClientOutDTO>();
         }
 
         public class ClientsConverter : IValueConverter<int, Client>

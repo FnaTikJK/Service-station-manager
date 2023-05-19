@@ -1,4 +1,5 @@
-﻿using API.Modules.Services.Core;
+﻿using API.Modules.Clients.DTO;
+using API.Modules.Services.Core;
 using API.Modules.Clinets.DTO;
 using API.Modules.Clinets.Ports;
 using Microsoft.AspNetCore.Mvc;
@@ -9,23 +10,23 @@ namespace API.Modules.Clinets
     [ApiController]
     public class ClientsController : ControllerBase
     {
-        private readonly IClientsService workersService;
+        private readonly IClientsService clientsService;
 
-        public ClientsController(IClientsService workersService)
+        public ClientsController(IClientsService clientsService)
         {
-            this.workersService = workersService;
+            this.clientsService = clientsService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Service>> GetAll()
+        public ActionResult<IEnumerable<ClientOutDTO>> GetAll()
         {
-            return Ok(workersService.GetAll());
+            return Ok(clientsService.GetAll());
         }
 
         [HttpGet("{id:int}")]
         public ActionResult GetById(int id)
         {
-            var response = workersService.GetById(id);
+            var response = clientsService.GetById(id);
 
             return response == null
                 ? NotFound()
@@ -33,9 +34,9 @@ namespace API.Modules.Clinets
         }
 
         [HttpPut]
-        public async Task<ActionResult<int>> PutAsync(ClientDTO clientDto)
+        public async Task<ActionResult<int>> PutAsync(ClientAddDTO clientAddDto)
         {
-            await this.workersService.AddOrUpdateAsync(clientDto);
+            await this.clientsService.AddOrUpdateAsync(clientAddDto);
 
             return Ok();
         }
@@ -43,7 +44,7 @@ namespace API.Modules.Clinets
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteAsync(int id)
         {
-            await workersService.RemoveAsync(id);
+            await clientsService.RemoveAsync(id);
 
             return NoContent();
         }

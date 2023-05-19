@@ -1,5 +1,4 @@
 ﻿using API.DAL;
-using API.Modules.Clinets.Core;
 using API.Modules.Repairs.Core;
 using API.Modules.Repairs.Ports;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +27,11 @@ namespace API.Modules.Repairs.Adapters
                 .Include(e => e.Client)
                 .Include(e => e.Services)
                 .FirstOrDefault(x => x.Id == id);
+        }
+
+        public IEnumerable<string> GetCars(int clientId)
+        {
+            return Set.Where(e => e.Client.Id == clientId).Select(e => e.Car).Distinct();
         }
 
         public async Task AddAsync(Repair repair)

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import ServiceLineComp from "../Home/ServiceLineComp";
 import {Button, DatePicker, Input} from "antd";
 import axios from "axios";
 import {ServiceDTO} from "../Home/HomePage";
 import WorkersLineComp from "./WorkersLineComp";
+import "../Styels.css"
 
 export interface WorkerDTO {
     id: number,
@@ -51,7 +51,7 @@ const WorkersPage = () => {
 
     return (
         <div>
-            <table>
+            <table className={"table"}>
                 <tr>
                     <th>ИД</th>
                     <th>Фамилия</th>
@@ -64,6 +64,8 @@ const WorkersPage = () => {
                     <WorkersLineComp client={w}/>)}
                 {!isAdding ?
                     <tr>
+                        <td/>
+                        <td/>
                         <td/>
                         <td/>
                         <td/>

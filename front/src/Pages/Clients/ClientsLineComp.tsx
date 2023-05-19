@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {Button, DatePicker, Input} from "antd";
-import {ClientDTO} from "./ClientsPage";
+import {ClientAddDTO, ClientOutDTO} from "./ClientsPage";
 import axios from "axios";
 
 type Props = {
-    client: ClientDTO
+    initClient: ClientOutDTO
 }
 
-async function UpdateValues(client: ClientDTO, setter: any){
+async function UpdateValues(client: ClientOutDTO, setter: any, clientSetter: any){
     setter("read");
     try {
         await axios.put("/api/Clients", {
@@ -16,14 +16,28 @@ async function UpdateValues(client: ClientDTO, setter: any){
             secondName: client.secondName,
             thirdName: client.thirdName,
             birthDate: client.birthDate});
+        var response = await axios.get<ClientOutDTO>(`/api/Clients/${client.id}`)
+        clientSetter(response.data);
     }
     catch (e){
         alert(e);
     }
 }
 
-const ClientsLineComp = ({client}: Props) => {
+async function RemoveAsync(id: number, setter: any){
+    try {
+        await axios.delete(`/api/Clients/${id}`);
+        setter(true);
+    }
+    catch (e) {
+        alert(e);
+    }
+}
+
+const ClientsLineComp = ({initClient}: Props) => {
     const [state, setState] = useState<"read" | "write">("read");
+    const [isRemoved, setIsRemoved] = useState<boolean>(false);
+    let [client, setClient] = useState<ClientOutDTO>(initClient);
     let birthDateFormat = "DD.MM.YYYY"
 
     return (
@@ -46,10 +60,11 @@ const ClientsLineComp = ({client}: Props) => {
                     <DatePicker format={birthDateFormat}
                                 onChange={date => date !== null ? client.birthDate=(date.format(birthDateFormat)) : date}/>}
             </td>
+            <td>{client.cars.map(c => <>{c}<br/></>)}</td>
             <td>
                 <Button onClick={() => state === "read" ?
                     setState("write") :
-                    UpdateValues(client, setState)}>
+                    UpdateValues(client, setState, setClient)}>
                     {state === "read" ? "Редактировать" : "Ок"}
                 </Button>
             </td>

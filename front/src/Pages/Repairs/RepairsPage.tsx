@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {Button, DatePicker, Input} from "antd";
 import RepairsLineComp from "./RepairsLineComp";
+import "../Styels.css"
 
 export interface PersonShortDTO {
     id: number,
@@ -75,7 +76,7 @@ const RepairsPage = () => {
 
     return (
         <div>
-            <table>
+            <table className={"table"}>
                 <tr>
                     <th>ИД</th>
                     <th>Назначенный рабочий</th>

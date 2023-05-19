@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import ServiceLineComp from "./ServiceLineComp";
 import {Button, Input} from "antd";
+import "../Styels.css"
 
 export interface ServiceDTO {
     id: number,
@@ -41,7 +42,7 @@ const HomePage = () => {
 
     return (
         <div>
-            <table>
+            <table className={"table"}>
                 <tr>
                     <th>ИД</th>
                     <th>Название</th>

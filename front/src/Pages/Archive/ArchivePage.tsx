@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {RepairDTO} from "../Repairs/RepairsPage";
 import axios from "axios";
 import ArchiveLineComp from "./ArchiveLineComp";
+import "../Styels.css"
 
 export interface ArchiveDTO {
     id: number,
@@ -29,7 +30,7 @@ const ArchivePage = () => {
 
     return (
         <div>
-            <table>
+            <table className={"table"}>
                 <tr>
                     <th>ИД</th>
                     <th>Назначенный рабочий</th>
