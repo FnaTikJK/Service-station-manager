@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {SetStateAction, useState} from 'react';
 import {ParseString, RepairDTO} from "./RepairsPage";
 import axios from "axios";
 import {Button, DatePicker, Input} from "antd";
@@ -25,10 +25,38 @@ async function UpdateValues(repair: RepairDTO, setter: any){
     }
 }
 
+async function Archive(id: number, setter: any){
+    try {
+        await axios.put("/api/Archives", {
+            id: 0,
+            repairId: id,
+            parts: "",
+            end: "01.01.0001",
+        })
+        setter(true);
+    }
+    catch (e) {
+        alert(e);
+    }
+}
+
+async function Remove(id: number, setter: any){
+    try {
+        await axios.delete(`/api/Repairs/${id}`)
+        setter(true);
+    }
+    catch (e) {
+        alert(e);
+    }
+}
+
 const RepairsLineComp = ({initRepair}: Props) => {
     const [state, setState] = useState<"read" | "write">("read");
+    const [isRemoved, setRemove] = useState<boolean>(false);
     let [repair, setRep] = useState<RepairDTO>(initRepair);
     let dateFormat = "DD.MM.YYYY"
+    if (isRemoved)
+        return (<></>);
 
     return (
         <tr>
@@ -60,6 +88,16 @@ const RepairsLineComp = ({initRepair}: Props) => {
                     setState("write") :
                     UpdateValues(repair, setState).then((v) => Test(v))}>
                     {state === "read" ? "Редактировать" : "Ок"}
+                </Button>
+            </td>
+            <td>
+                <Button onClick={() => Archive(repair.id, setRemove)} color={"green"}>
+                    В архив
+                </Button>
+            </td>
+            <td>
+                <Button onClick={() => Remove(repair.id, setRemove)} color={"red"}>
+                    Удалить
                 </Button>
             </td>
         </tr>

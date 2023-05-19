@@ -17,7 +17,8 @@ namespace API.Modules.Repairs.Adapters
             return Set
                 .Include(e => e.Worker)
                 .Include(e => e.Client)
-                .Include(e => e.Services);
+                .Include(e => e.Services)
+                .Where(e => !e.Archives.Any());
         }
 
         public Repair? GetById(int id)

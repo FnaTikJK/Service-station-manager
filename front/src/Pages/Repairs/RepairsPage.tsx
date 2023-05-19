@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import axios, {AxiosError} from "axios";
-import {ServiceDTO} from "../Home/HomePage";
-import ClientsLineComp from "../Clients/ClientsLineComp";
+import axios from "axios";
 import {Button, DatePicker, Input} from "antd";
-import {ClientDTO} from "../Clients/ClientsPage";
 import RepairsLineComp from "./RepairsLineComp";
 
 export interface PersonShortDTO {

@@ -17,7 +17,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    options.EnableSensitiveDataLogging(true);
 });
 
 builder.Services.AddControllers().AddJsonOptions(options =>

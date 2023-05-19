@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using API.Modules.Archives.Core;
 using API.Modules.Clinets.Core;
 using API.Modules.Services.Core;
 using API.Modules.Workers.Core;
@@ -13,6 +14,7 @@ namespace API.Modules.Repairs.Core
         public IEnumerable<Service> Services { get; set; }
         public string Car { get; set; }
         public DateTime Start { get; set; }
+        public IEnumerable<Archive> Archives { get; set; }
 
         public bool IsCorrect(out string message)
         {

@@ -6,6 +6,7 @@ import HomePage from "./Pages/Home/HomePage";
 import WorkersPage from "./Pages/Workers/WorkersPage";
 import ClientsPage from "./Pages/Clients/ClientsPage";
 import RepairsPage from "./Pages/Repairs/RepairsPage";
+import ArchivePage from "./Pages/Archive/ArchivePage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path={"/Workers"} element={<WorkersPage />}/>
             <Route path={"/Clients"} element={<ClientsPage />}/>
             <Route path={"/Repairs"} element={<RepairsPage />}/>
+            <Route path={"/Archive"} element={<ArchivePage />}/>
         </Route>
       </Routes>
   );

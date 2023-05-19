@@ -9,7 +9,6 @@ namespace API.Modules.Workers.DTO
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string ThirdName { get; set; }
-        [JsonConverter(typeof(DateOnlyJsonConverter))]
         public DateOnly BirthDate { get; set; }
     }
 }

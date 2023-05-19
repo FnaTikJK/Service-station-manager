@@ -10,7 +10,7 @@ type Props = {
 async function UpdateValues(client: ClientDTO, setter: any){
     setter("read");
     try {
-        await axios.put("/api/Workers", {
+        await axios.put("/api/Clients", {
             id: client.id,
             firstName: client.firstName,
             secondName: client.secondName,
